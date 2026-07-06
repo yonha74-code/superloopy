@@ -191,7 +191,7 @@ async function checkGateNotes(cwd) {
 
 async function checkReviewability(cwd) {
   try {
-    const files = listGitVisibleFiles(cwd).filter((file) => /\.(js|md|json|yaml)$/u.test(file));
+    const files = listGitVisibleFiles(cwd).filter(isReviewableTextFile);
     const measured = await Promise.all(files.map(async (file) => ({
       file,
       lines: countLines(await readFile(join(cwd, file), "utf8"))
@@ -210,6 +210,11 @@ async function checkReviewability(cwd) {
   } catch (error) {
     return fail(error instanceof Error ? error.message : String(error));
   }
+}
+
+function isReviewableTextFile(file) {
+  // web/_nuxt and web/_next hold vendored minified bundles audited by provenance, not line count.
+  return /\.(js|md|json|yaml)$/u.test(file) && !file.startsWith("web/_nuxt/") && !file.startsWith("web/_next/");
 }
 
 function countLines(content) {

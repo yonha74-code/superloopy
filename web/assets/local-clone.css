@@ -1,0 +1,11 @@
+.styles_menu__Hm8IV[aria-expanded="false"] {
+  pointer-events: none;
+}
+
+.styles_menu__Hm8IV[aria-expanded="true"] {
+  pointer-events: auto;
+}
+
+body.local-menu-open {
+  overflow: hidden;
+}

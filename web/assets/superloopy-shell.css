@@ -1,0 +1,1121 @@
+:root {
+  --superloopy-orbit-scene-hero-bg: #fff0cf;
+  --superloopy-hero-badge-shadow: rgba(27, 29, 32, 0.28);
+  --superloopy-command-section-bg: #e6eeec;
+  --superloopy-command-section-paper: #f5f5ee;
+  --superloopy-command-section-warm: #f2e0d4;
+  --superloopy-command-card: #fffdf8;
+  --superloopy-command-line: #101217;
+  --superloopy-command-border: rgba(18, 22, 27, 0.18);
+  --superloopy-command-ink: #101217;
+  --superloopy-command-code-ink: #f7f5ef;
+  --superloopy-command-muted: #5f6872;
+  --superloopy-command-prompt: #8ed081;
+  --superloopy-command-accent: #e8774f;
+  --superloopy-command-copy-bg: #fff7e5;
+  --superloopy-command-copy-ink: #101217;
+  --superloopy-cta-bg: #101217;
+  --superloopy-cta-bg-alt: #293752;
+  --superloopy-cta-accent: #e8774f;
+  --superloopy-cta-accent-glow: rgba(232, 119, 79, 0.42);
+  --superloopy-cta-warm: #3a261f;
+  --superloopy-cta-border: rgba(255, 247, 229, 0.38);
+  --superloopy-cta-shine: rgba(255, 247, 229, 0.24);
+  --superloopy-cta-shadow: rgba(16, 18, 23, 0.26);
+  --superloopy-proof-image-bg: #f8efe0;
+  --superloopy-eye-bg: #fff0cf;
+  --superloopy-eye-frame-bg: #c9f2ec;
+  --superloopy-eye-frame-start: #d6f6ee;
+  --superloopy-eye-frame-end: #b4c3ff;
+  --superloopy-eye-glow: rgba(255, 255, 255, 0.76);
+  --superloopy-eye-glow-soft: rgba(189, 239, 232, 0.64);
+  --superloopy-eye-frame-shadow: rgba(9, 11, 17, 0.16);
+  --superloopy-eye-progress-bg: rgba(16, 18, 23, 0.18);
+  --superloopy-loader-bg: rgba(255, 240, 207, 0.96);
+  --superloopy-loader-rail: rgba(16, 18, 23, 0.14);
+  --superloopy-loader-fill: rgba(16, 18, 23, 0.86);
+  --superloopy-media-radius: 0.8rem;
+  --superloopy-command-card-shadow: rgba(18, 22, 27, 0.08);
+  --superloopy-command-copy-border: rgba(255, 247, 229, 0.14);
+  --superloopy-command-copy-inner: rgba(255, 247, 229, 0.08);
+  --superloopy-command-copy-shadow: rgba(16, 18, 23, 0.12);
+}
+
+html,
+body {
+  background: var(--superloopy-orbit-scene-hero-bg);
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+@supports not (overflow-x: clip) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
+
+.bg-gradient-preloader-purple {
+  display: none !important;
+}
+
+.superloopy-orbit-loader {
+  align-items: center;
+  background: var(--superloopy-loader-bg);
+  color: var(--superloopy-command-ink);
+  display: grid;
+  inset: 0;
+  justify-items: center;
+  padding: clamp(2.4rem, 6vw, 6.4rem);
+  pointer-events: auto;
+  position: fixed;
+  transition: opacity 420ms ease, visibility 420ms ease;
+  z-index: 90;
+}
+
+.superloopy-orbit-loader.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.superloopy-orbit-loader__inner {
+  display: grid;
+  gap: 1.4rem;
+  max-width: 36rem;
+  width: min(36rem, 100%);
+}
+
+.superloopy-orbit-loader__brand {
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.superloopy-orbit-loader__rail {
+  background: var(--superloopy-loader-rail);
+  border-radius: 999rem;
+  height: 0.3rem;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.superloopy-orbit-loader__rail::before {
+  animation: superloopy-loader-rail 1100ms cubic-bezier(0.76, 0, 0.24, 1) infinite;
+  background: var(--superloopy-loader-fill);
+  border-radius: inherit;
+  content: "";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transform: translateX(-120%);
+  width: 42%;
+}
+
+@keyframes superloopy-loader-rail {
+  0% {
+    transform: translateX(-120%);
+  }
+
+  100% {
+    transform: translateX(240%);
+  }
+}
+
+main > section:first-child {
+  isolation: isolate;
+  background: var(--superloopy-orbit-scene-hero-bg) !important;
+}
+
+main > section:first-child > .bg-gradient-purple-radial {
+  background: transparent !important;
+}
+
+main > section:first-child video {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.superloopy-orbit-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--superloopy-orbit-scene-hero-bg);
+}
+
+/* First-landing entrance: the orbit rises from below as the loader lifts,
+   mirroring the source scene's intro. */
+.superloopy-orbit-layer iframe {
+  opacity: 0;
+  transform: translateY(16%) scale(1.04);
+  transition: opacity 900ms ease 80ms, transform 1600ms cubic-bezier(0.16, 1, 0.3, 1) 80ms;
+  will-change: transform, opacity;
+}
+
+.superloopy-orbit-layer.is-risen iframe {
+  opacity: 1;
+  transform: scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .superloopy-orbit-layer iframe {
+    opacity: 1;
+    transform: scale(1.04);
+    transition: none;
+  }
+}
+
+.superloopy-orbit-layer iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  transform-origin: center;
+}
+
+main > section:first-child > :not(.superloopy-orbit-layer) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hero title glyph: the Superloopy orbit sphere (same art as the favicon), replacing
+   the cloned site's whirl mark. */
+.title--has-whirl .line-w:nth-child(2) .line::before {
+  background-color: transparent !important;
+  background-image: url("/favicon/android-chrome-192x192.png?v=2") !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  filter: drop-shadow(0 0.035em 0.06em var(--superloopy-hero-badge-shadow));
+  height: 0.82em !important;
+  margin-right: 0.035em;
+  opacity: 0.96;
+  vertical-align: -0.08em !important;
+  width: 0.82em !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+/* The cloned collage draws lavender offset frames and confetti squares behind the
+   crew image; the svg also sizes the block, so hide its shapes, not the svg. */
+svg[viewBox="0 0 430 315"] path,
+svg[viewBox="0 0 430 315"] rect {
+  visibility: hidden !important;
+}
+
+svg[viewBox="0 0 121 19"] {
+  display: none !important;
+}
+
+a.inline-flex[href="/"]::before {
+  content: "Superloopy";
+  color: currentColor;
+  font-family: inherit;
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+body.superloopy-install-header-active .header,
+body.superloopy-install-header-active .fixed.right-0.top-0 {
+  color: var(--superloopy-command-ink) !important;
+}
+
+.superloopy-github-text-link {
+  align-items: center;
+  align-self: center;
+  background: color-mix(in srgb, currentColor 7%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 24%, transparent);
+  border-radius: 0.65rem;
+  color: currentColor;
+  display: inline-flex;
+  font-size: 1.25rem;
+  font-weight: 700;
+  gap: 0.75rem;
+  height: 3.2rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  margin-right: 1.4rem;
+  padding: 0 1.2rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.superloopy-github-text-link > svg,
+.superloopy-github-text-link > span {
+  display: block;
+  flex-shrink: 0;
+}
+
+.superloopy-github-text-link > svg:first-child {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.superloopy-github-label {
+  line-height: 1;
+  /* Uppercase cap-height sits high in the line box; drop ~2px so the label's
+     optical center matches the octocat and star centers (measured from a live
+     2x capture: text center 37.5 vs icon 39.0/star 39.5). */
+  transform: translateY(0.115em);
+}
+
+.superloopy-github-sep {
+  background: color-mix(in srgb, currentColor 24%, transparent);
+  height: 1.5rem;
+  width: 1px;
+}
+
+.superloopy-github-star {
+  height: 1.3rem;
+  opacity: 0.85;
+  transition: opacity 160ms ease, transform 160ms ease;
+  width: 1.3rem;
+}
+
+.superloopy-github-text-link:hover {
+  background: color-mix(in srgb, currentColor 13%, transparent);
+  border-color: color-mix(in srgb, currentColor 45%, transparent);
+  text-decoration: none;
+}
+
+.superloopy-github-text-link:hover .superloopy-github-star {
+  opacity: 1;
+  transform: rotate(72deg);
+}
+
+.superloopy-github-text-link:focus-visible {
+  outline: 0.18rem solid currentColor;
+  outline-offset: 0.35rem;
+}
+
+.superloopy-github-icon-link svg {
+  display: block;
+  height: 1.55rem;
+  width: 1.55rem;
+}
+
+/* Until the enhancement pass swaps in the GitHub mark, the base site's leftover social
+   glyph (LinkedIn) sits inside these anchors — never show that pre-swap state. */
+a[href*="github.com/beefiker/superloopy"]:not([data-superloopy-github-icon]):not(.superloopy-footer-github-link):not(.superloopy-start-loop-button) svg {
+  visibility: hidden !important;
+}
+
+.superloopy-github-icon-link {
+  align-items: center;
+  display: inline-flex !important;
+  justify-content: center;
+}
+
+.superloopy-locale-list.superloopy-hidden-duplicate-locale,
+.superloopy-hidden-duplicate-locale {
+  display: none !important;
+}
+
+.superloopy-locale-list {
+  align-items: center;
+  display: inline-flex !important;
+  gap: 0.4rem;
+  margin-right: 1.4rem;
+}
+
+.superloopy-locale-shell {
+  margin-right: 1.4rem !important;
+}
+
+.superloopy-locale-shell .superloopy-locale-list {
+  margin-right: 0;
+}
+
+.superloopy-locale-list button {
+  background: transparent;
+  border: 0;
+  color: currentColor;
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.superloopy-locale-list button:not(:last-child)::after {
+  color: currentColor;
+  content: "|";
+  display: inline-block;
+  margin-left: 0.4rem;
+  opacity: 0.6;
+}
+
+.superloopy-locale-list button.is-active {
+  font-weight: 800;
+}
+
+.superloopy-locale-list button:disabled {
+  cursor: default;
+}
+
+/* Footer GitHub links render as plain text like the reference site — no boxed buttons.
+   The primary one (footer-email slot) is the big contact-style line; the rest match the
+   small uppercase labels around them. */
+footer a.superloopy-footer-github-link {
+  background: none !important;
+  border: 0 !important;
+  border-radius: 0;
+  box-shadow: none !important;
+  display: inline-block !important;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  min-height: 0;
+  padding: 0;
+  text-transform: uppercase;
+  width: auto;
+}
+
+footer a.superloopy-footer-github-link:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 0.1rem;
+  text-underline-offset: 0.3rem;
+}
+
+footer a.superloopy-footer-github-link .superloopy-footer-github-text {
+  font-size: 1.4rem;
+}
+
+footer a.superloopy-footer-github-primary .superloopy-footer-github-text {
+  font-size: clamp(1.9rem, 2.4vw, 3.4rem);
+}
+
+footer a.superloopy-footer-github-primary {
+  display: block !important;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.12 !important;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-transform: lowercase !important;
+}
+
+.footer-title {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.faqs-title,
+.faqs-title .styles_wrapper__e5z0j,
+.faqs-title .styles_splitText__pzy_L,
+.faqs-title .styles_fallback__a_QZN {
+  max-width: 100%;
+}
+
+.superloopy-start-loop-button {
+  background:
+    radial-gradient(circle at 88% 18%, var(--superloopy-cta-accent-glow), transparent 28%),
+    linear-gradient(135deg, var(--superloopy-cta-bg) 0%, var(--superloopy-cta-bg-alt) 68%, var(--superloopy-cta-warm) 100%) !important;
+  border: 1px solid var(--superloopy-cta-border) !important;
+  border-radius: 0.8rem !important;
+  box-shadow: 0 2rem 5rem var(--superloopy-cta-shadow), inset 0 1px 0 var(--superloopy-cta-shine);
+  color: var(--superloopy-command-copy-bg) !important;
+  isolation: isolate;
+  overflow: hidden !important;
+  min-height: clamp(11rem, 9vw, 14rem);
+  padding-bottom: clamp(1.8rem, 2.2vw, 2.8rem) !important;
+  padding-right: 7rem !important;
+  padding-top: clamp(1.8rem, 2.2vw, 2.8rem) !important;
+  position: relative !important;
+  transition: box-shadow 180ms ease, transform 180ms ease;
+}
+
+.superloopy-start-loop-button::before {
+  background: linear-gradient(90deg, transparent, var(--superloopy-cta-shine), transparent);
+  content: "";
+  inset: 0;
+  opacity: 0.72;
+  position: absolute;
+  transform: translateX(-70%) skewX(-14deg);
+  transition: transform 420ms ease;
+  z-index: -1;
+}
+
+.superloopy-start-loop-button:hover {
+  box-shadow: 0 2.4rem 6.4rem var(--superloopy-cta-shadow), inset 0 1px 0 var(--superloopy-cta-shine);
+  transform: translateY(-0.12rem);
+}
+
+.superloopy-start-loop-button:hover::before {
+  transform: translateX(70%) skewX(-14deg);
+}
+
+.superloopy-start-loop-button .custom-link__text,
+.superloopy-start-loop-button span {
+  max-width: 100%;
+  min-width: 0;
+  overflow: visible !important;
+  position: relative;
+  white-space: normal;
+  z-index: 1;
+}
+
+.superloopy-start-loop-button .custom-link__text {
+  display: block !important;
+}
+
+.superloopy-start-loop-button .custom-link__text > span {
+  display: inline !important;
+}
+
+.superloopy-start-loop-button .custom-link__text > span:nth-child(n+2) {
+  display: none !important;
+}
+
+/* btn--secondary buttons carry the same rolled-duplicate structure under .btn__chars;
+   our overflow:visible override above defeats the base height clamp, so hide the
+   duplicate copy explicitly (same treatment as .custom-link__text above). */
+.superloopy-start-loop-button .btn__chars > span:nth-child(n+2) {
+  display: none !important;
+}
+
+.superloopy-start-loop-button .btn__ic svg {
+  display: none !important;
+}
+
+.superloopy-start-loop-button .btn__ic {
+  display: none !important;
+}
+
+.superloopy-start-loop-button__arrow {
+  align-items: center;
+  background: var(--superloopy-command-copy-bg);
+  border: 1px solid rgba(16, 18, 23, 0.08);
+  border-radius: 50%;
+  box-shadow: 0 0.8rem 1.8rem rgba(16, 18, 23, 0.22);
+  color: var(--superloopy-command-ink);
+  display: inline-flex !important;
+  font-size: 1.7rem;
+  font-weight: 800;
+  height: 3.8rem;
+  justify-content: center;
+  line-height: 1;
+  pointer-events: none;
+  position: absolute !important;
+  right: 1.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3.8rem;
+  z-index: 2 !important;
+}
+
+.superloopy-start-loop-button__arrow svg {
+  display: block !important;
+  height: 2.1rem;
+  width: 2.1rem;
+}
+
+/* Non-destructive overlay pattern: React-owned children stay in the DOM (hidden)
+   and our replacement node is appended, so React reconciliation never crashes on
+   nodes we removed. Each rule hides the originals inside a converted container. */
+.superloopy-eye-column > :not(.superloopy-eye-model),
+.superloopy-install-section > :not(.superloopy-install-body),
+.superloopy-locale-list > :not(.superloopy-locale-buttons),
+.superloopy-github-icon-link > :not(.superloopy-github-mark) {
+  display: none !important;
+}
+
+.superloopy-locale-buttons {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.4rem;
+}
+
+footer a.superloopy-footer-github-link {
+  font-size: 0 !important;
+}
+
+.superloopy-footer-two-line {
+  font-size: 0 !important;
+}
+
+.superloopy-footer-two-line > .superloopy-footer-word {
+  font-size: min(9rem, calc(4.944rem + 2.817vw));
+}
+
+.superloopy-dead-proof-link,
+.superloopy-removed-banner {
+  display: none !important;
+}
+
+/* The menu's GitHub row is a non-navigating <button> (unlike the <a> nav items),
+   so its hover-clone char spans render stacked as doubled "GITHUB" text. GitHub
+   already lives in the header pill and footer — drop the row entirely. */
+.header-menu-item:has(button.custom-link) {
+  display: none !important;
+}
+
+/* Keep the header GitHub pill from bleeding over the open menu overlay. */
+.header.menu--active .superloopy-github-text-link {
+  visibility: hidden !important;
+}
+
+img.superloopy-swapped-asset,
+.superloopy-media-frame > img.superloopy-swapped-asset {
+  background: var(--superloopy-proof-image-bg);
+  border-radius: inherit;
+  display: block;
+  height: 100% !important;
+  max-height: none !important;
+  max-width: none !important;
+  min-height: 100% !important;
+  min-width: 100% !important;
+  object-fit: cover !important;
+  transform: none !important;
+  width: 100% !important;
+}
+
+img.parallax-block__image.superloopy-swapped-asset {
+  border-radius: var(--superloopy-media-radius) !important;
+  clip-path: inset(0 round var(--superloopy-media-radius));
+  height: auto !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+
+img.parallax-block__image.w-\[15\%\].superloopy-swapped-asset {
+  width: 15% !important;
+}
+
+img.parallax-block__image.w-\[20\%\].superloopy-swapped-asset {
+  width: 20% !important;
+}
+
+img.parallax-block__image.w-\[34\%\].superloopy-swapped-asset {
+  width: 34% !important;
+}
+
+.superloopy-crew-asset {
+  object-fit: cover !important;
+  padding: 0 !important;
+}
+
+.superloopy-media-frame {
+  background: var(--superloopy-proof-image-bg);
+  border-radius: var(--superloopy-media-radius) !important;
+  display: block;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+.header-menu-item__thumb.superloopy-media-frame {
+  aspect-ratio: 862 / 484;
+  min-height: clamp(14rem, 22vw, 30rem);
+  position: relative;
+}
+
+.header-menu-item__thumb.superloopy-media-frame > img.superloopy-swapped-asset {
+  inset: 0;
+  position: absolute;
+}
+
+.parallax-images__container.superloopy-media-frame {
+  background: transparent !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  position: absolute !important;
+}
+
+.superloopy-crew-frame,
+.superloopy-proof-frame {
+  min-height: 100%;
+}
+
+/* Crew glass panes replace the footer's navy saw model at the end of the page. The
+   holder keeps the base site's footer layout (relative, lg:absolute) and is already
+   a positioned ancestor, so the layer only needs to fill it. */
+
+/* The footer's original saw renders through the base site's shared WebGL tunnel,
+   which reads this placeholder's rect every frame — display:none gives it a
+   degenerate 0x0 rect that flickers on real GPUs. visibility keeps the rect valid
+   while hiding the model; the opaque layer sits on top regardless. */
+.superloopy-glass-holder > :not(.superloopy-glass-layer) {
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+/* The intro collage wrapper carries heavy horizontal padding sized for the old
+   framed picture and shrink-wraps (inline-flex) to the svg's intrinsic 430px;
+   drop the padding, stretch the chain, and lift the sizing cap so the panes
+   fill the column. */
+.superloopy-glass-frame {
+  display: flex !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  width: 100%;
+}
+
+.superloopy-glass-frame > .superloopy-glass-holder {
+  width: 100%;
+}
+
+.superloopy-glass-holder svg[viewBox="0 0 430 315"] {
+  max-width: none !important;
+  width: 100% !important;
+}
+
+/* No card box: the embed is transparent end-to-end (its WebGL canvas has alpha),
+   so the panes float directly on the footer navy like the rest of the column.
+   translateZ isolates the iframe on its own compositor layer so page scroll
+   doesn't force repaints of the WebGL surface. */
+.superloopy-glass-layer {
+  inset: 0;
+  position: absolute;
+  transform: translateZ(0);
+}
+
+.superloopy-glass-layer iframe {
+  background: transparent;
+  border: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.superloopy-eye-section {
+  isolation: isolate;
+  overflow: visible;
+  position: relative;
+}
+
+.superloopy-eye-section > :not(.superloopy-eye-model) {
+  position: relative;
+  z-index: 2;
+}
+
+/* No forced min-height: the steps column drives the grid height, so the sticky
+   eye stage releases exactly when Step 04 scrolls out instead of overstaying. */
+.superloopy-eye-column {
+  height: 100%;
+  position: relative;
+}
+
+.superloopy-eye-model {
+  aspect-ratio: 10 / 7;
+  background: var(--superloopy-eye-frame-bg);
+  border-radius: 0.8rem;
+  box-shadow: 0 3rem 8rem var(--superloopy-eye-frame-shadow);
+  height: auto;
+  left: clamp(1.8rem, 6vw, 10rem);
+  overflow: hidden;
+  pointer-events: auto;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(48vw, 68rem);
+  z-index: 1;
+}
+
+.superloopy-eye-column .superloopy-eye-model {
+  height: auto;
+  left: auto;
+  position: sticky;
+  top: 8rem;
+  transform: none;
+  width: 100%;
+  z-index: 2;
+}
+
+@media (min-width: 900px) {
+  .superloopy-eye-model {
+    aspect-ratio: auto;
+    height: calc(100vh - 6rem);
+    max-height: none;
+    width: min(50vw, 96rem);
+  }
+
+  /* Fill the viewport while pinned: full height minus a small frame margin, and
+     span the whole left half up to the center divider (the column is narrower,
+     so the pane is allowed to outgrow it). */
+  .superloopy-eye-column .superloopy-eye-model {
+    height: calc(100vh - 6rem);
+    max-height: none;
+    top: 3rem;
+    width: max(100%, calc(50vw - clamp(3.6rem, 8vw, 13rem)));
+  }
+}
+
+.superloopy-eye-orbital {
+  background:
+    radial-gradient(circle at 32% 54%, var(--superloopy-eye-glow) 0%, transparent 28%),
+    linear-gradient(135deg, var(--superloopy-eye-frame-start) 0%, var(--superloopy-eye-frame-bg) 48%, var(--superloopy-eye-frame-end) 100%);
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  transform: none !important;
+  transform-style: flat;
+  transition: transform 140ms linear;
+  width: 100%;
+  will-change: transform;
+}
+
+.superloopy-eye-canvas,
+.superloopy-eye-fallback {
+  inset: 0;
+  position: absolute;
+}
+
+.superloopy-eye-canvas {
+  border: 0;
+  display: block;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transform: none;
+  transform-origin: center;
+  transition: opacity 320ms ease;
+  width: 100%;
+}
+
+.superloopy-eye-model.is-webgl-ready .superloopy-eye-canvas {
+  opacity: 1;
+}
+
+.superloopy-eye-model img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity 280ms ease;
+  width: 100%;
+}
+
+.superloopy-eye-model.is-webgl-ready img {
+  opacity: 0;
+}
+
+.superloopy-eye-model.is-webgl-error img {
+  opacity: 1;
+}
+
+.superloopy-eye-progress {
+  display: none;
+}
+
+.superloopy-eye-progress span {
+  background: var(--superloopy-command-ink);
+  border-radius: inherit;
+  display: block;
+  height: 100%;
+  transform: scaleX(var(--eye-progress, 0));
+  transform-origin: left center;
+  width: 100%;
+}
+
+/* The giant FAQ headline: the base site's split-char scroll animation is orphaned by
+   our copy swap and left the title invisible. Force every leftover transform/opacity
+   off so the plain "FAQ" text always renders. */
+.faqs-title,
+.faqs-title * {
+  opacity: 1 !important;
+  transform: none !important;
+  translate: none !important;
+  visibility: visible !important;
+}
+
+#form {
+  background: var(--superloopy-command-section-bg);
+}
+
+#form .superloopy-install-section {
+  background:
+    linear-gradient(135deg, var(--superloopy-command-section-bg) 0%, var(--superloopy-command-section-paper) 48%, var(--superloopy-command-section-warm) 100%) !important;
+  color: var(--superloopy-command-ink) !important;
+  display: block !important;
+  min-height: auto !important;
+  max-height: none !important;
+  padding-bottom: clamp(7.2rem, 10vw, 14rem) !important;
+  padding-top: clamp(7.2rem, 10vw, 14rem) !important;
+}
+
+.superloopy-install-kicker {
+  align-items: center;
+  color: var(--superloopy-command-muted);
+  display: flex;
+  font-size: 1.4rem;
+  font-weight: 700;
+  gap: 0.8rem;
+  letter-spacing: 0;
+  line-height: 1;
+  margin-bottom: clamp(2.4rem, 4vw, 4.8rem);
+  text-transform: uppercase;
+}
+
+.superloopy-install-kicker::before {
+  background: var(--superloopy-command-accent);
+  border-radius: 50%;
+  content: "";
+  height: 0.8rem;
+  width: 0.8rem;
+}
+
+.superloopy-install-heading {
+  align-items: end;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: minmax(0, 1fr);
+  margin-bottom: clamp(3.2rem, 5vw, 6.4rem);
+}
+
+.superloopy-install-heading h2 {
+  font-family: inherit;
+  font-size: 7.6rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 0.94;
+  max-width: 10ch;
+}
+
+.superloopy-install-commands {
+  display: grid;
+  gap: 1.8rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.superloopy-command-card {
+  background: var(--superloopy-command-card);
+  border: 1px solid var(--superloopy-command-border);
+  border-radius: 0.8rem;
+  box-shadow: 0 2.4rem 6rem var(--superloopy-command-card-shadow);
+  display: grid;
+  gap: 2.2rem;
+  padding: clamp(1.8rem, 3vw, 3.2rem);
+}
+
+.superloopy-command-card__header {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.superloopy-command-card__header h3 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+  margin: 0;
+}
+
+.superloopy-command-card__mark {
+  border: 0.2rem solid currentColor;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.superloopy-command-card[data-command-card="claude"] .superloopy-command-card__mark {
+  background: currentColor;
+}
+
+.superloopy-command-copy {
+  align-items: stretch;
+  background: var(--superloopy-command-line);
+  border: 1px solid var(--superloopy-command-copy-border);
+  border-radius: 0.8rem;
+  box-shadow: inset 0 1px 0 var(--superloopy-command-copy-inner), 0 1.4rem 3.4rem var(--superloopy-command-copy-shadow);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 10.8rem;
+  min-height: 12rem;
+  overflow: hidden;
+}
+
+.superloopy-command-copy pre {
+  align-items: center;
+  display: flex;
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  padding: 1.8rem 2rem;
+}
+
+.superloopy-command-copy code {
+  color: var(--superloopy-command-code-ink);
+  display: grid;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 1.45rem;
+  gap: 0.45rem;
+  letter-spacing: 0;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.superloopy-command-line {
+  display: grid;
+  gap: 1.1rem;
+  grid-template-columns: 1.7rem minmax(0, 1fr);
+}
+
+.superloopy-command-prompt {
+  color: var(--superloopy-command-prompt);
+  font-weight: 700;
+}
+
+.superloopy-command-text {
+  min-width: 0;
+}
+
+.superloopy-copy-button {
+  align-items: center;
+  background: var(--superloopy-command-copy-bg);
+  border: 0;
+  color: var(--superloopy-command-copy-ink);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 1.4rem;
+  font-weight: 700;
+  justify-content: center;
+  letter-spacing: 0;
+  min-width: 0;
+  padding: 0 1.6rem;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.superloopy-copy-button::before {
+  border: 0.15rem solid currentColor;
+  border-radius: 0.2rem;
+  content: "";
+  height: 1.4rem;
+  margin-right: 0.8rem;
+  width: 1.1rem;
+  box-shadow: 0.35rem -0.35rem 0 -0.15rem var(--superloopy-command-copy-bg), 0.35rem -0.35rem 0 0 currentColor;
+}
+
+.superloopy-copy-button[data-copied="true"] {
+  background: var(--superloopy-command-accent);
+  color: var(--superloopy-command-copy-bg);
+}
+
+.superloopy-command-card p {
+  color: var(--superloopy-command-muted);
+  font-size: 1.6rem;
+  letter-spacing: 0;
+  line-height: 1.4;
+  margin: 0;
+}
+
+@media (max-width: 899px) {
+  .superloopy-install-commands {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .faqs-title,
+  .footer-title {
+    font-size: clamp(5.8rem, 19vw, 8.6rem) !important;
+    line-height: 0.9;
+  }
+
+  .superloopy-install-heading h2 {
+    font-size: 4.8rem;
+    max-width: 11ch;
+  }
+
+  .superloopy-command-copy {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .superloopy-command-copy pre {
+    padding: 1.6rem;
+  }
+
+  .superloopy-command-copy code {
+    font-size: 1.2rem;
+  }
+
+  .superloopy-copy-button {
+    border-radius: 0.6rem;
+    font-size: 1.2rem;
+    height: 4.4rem;
+    justify-self: end;
+    margin: 0 1rem 1rem 0;
+    padding: 0 1rem;
+    width: 8rem;
+  }
+
+  .superloopy-locale-list {
+    gap: 0.25rem;
+    margin-right: 0.8rem;
+  }
+
+  .superloopy-locale-list button {
+    font-size: 1.15rem;
+  }
+
+  .superloopy-eye-model {
+    aspect-ratio: 10 / 7;
+    height: auto;
+    left: auto;
+    margin: 6rem auto 2rem;
+    max-width: 58rem;
+    position: relative;
+    top: auto;
+    transform: none;
+    width: calc(100% - 3.2rem);
+  }
+
+  .superloopy-eye-section,
+  .superloopy-eye-column {
+    min-height: auto;
+  }
+}
+
+.superloopy-footer-two-line {
+  display: grid !important;
+  line-height: 0.9 !important;
+  max-width: 11ch;
+  row-gap: 0.02em;
+  white-space: normal !important;
+  word-break: normal !important;
+}
+
+.superloopy-footer-two-line span {
+  display: block;
+  white-space: nowrap;
+}
+
+@media (max-width: 1199px) {
+  .superloopy-footer-two-line {
+    font-size: 4.9rem !important;
+    max-width: 10ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .superloopy-orbit-loader {
+    transition: none;
+  }
+
+  .superloopy-orbit-loader__rail::before {
+    animation: none;
+    opacity: 0.72;
+    transform: none;
+    width: 100%;
+  }
+}

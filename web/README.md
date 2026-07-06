@@ -1,7 +1,7 @@
 # Superloopy landing page
 
-Static, self-contained landing page for [Superloopy](https://github.com/beefiker/superloopy).
-No build step — `index.html` + `assets/` only.
+Static landing page payload for [Superloopy](https://github.com/beefiker/superloopy).
+No build step. The page mirrors the local J-Vers clone payload (`index.html`, `_next/`, `uploads/`, `models/`, and `favicon/`), rewrites visible content for Superloopy, and adds only a first-hero override that mounts Blueyard's copied Nuxt/WebGL orbit runtime from `orbit.html`, `_nuxt/`, `webgl/`, `basis`, and `draco`.
 
 ## Deploy to Cloudflare Pages
 
@@ -26,5 +26,7 @@ Every push to `main` redeploys.
 ## Local preview
 
 ```
-npx serve web      # or: python3 -m http.server -d web 8080
+node scripts/serve-web.mjs
 ```
+
+Use an HTTP server for preview. The server handles static files and maps J-Vers `/_next/image` requests back to local `web/uploads/` files, while the first hero mounts the copied Blueyard `landing-orb` scene.

@@ -19,7 +19,7 @@ test("file audit covers every repository file and reference boundary", async () 
 });
 
 test("source and test files stay small enough to review file by file", async () => {
-  const files = listRepoFiles().filter((file) => /\.(js|md|json|yaml)$/u.test(file));
+  const files = listRepoFiles().filter(isReviewableTextFile);
   const oversized = [];
   for (const file of files) {
     const lineCount = (await readFile(file, "utf8")).split("\n").length - 1;
@@ -56,4 +56,8 @@ function listRepoFiles() {
     .filter(Boolean)
     .filter((file) => existsSync(file))
     .sort();
+}
+
+function isReviewableTextFile(file) {
+  return /\.(js|md|json|yaml)$/u.test(file) && !file.startsWith("web/_nuxt/") && !file.startsWith("web/_next/");
 }
